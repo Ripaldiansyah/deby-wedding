@@ -80,3 +80,21 @@ INSERT IGNORE INTO rsvp_messages (guest_name, attendance, num_guests, message) V
 ('Rahma & Family', 'attending', 2, 'Happy wedding Sekar & Bima! Wishing you a lifetime of happiness.'),
 ('Dimas Arya', 'not_attending', 0, 'Sorry I cannot make it. Congratulations!'),
 ('Sari', 'attending', 1, 'Beautiful invitation! See you on the big day.');
+
+CREATE TABLE IF NOT EXISTS guests (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  slug VARCHAR(100) UNIQUE NOT NULL,
+  guest_name VARCHAR(200) NOT NULL,
+  max_guests INT DEFAULT 2,
+  has_opened BOOLEAN DEFAULT FALSE,
+  opened_at TIMESTAMP NULL,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+INSERT IGNORE INTO site_settings (setting_key, setting_value) VALUES
+('photo_hero', ''),
+('photo_bride', ''),
+('photo_groom', ''),
+('photo_story', ''),
+('video_url', 'https://www.youtube.com/embed/dQw4w9WgXcQ'); /* Placeholder video */
+
