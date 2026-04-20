@@ -11,8 +11,7 @@ require('dotenv').config({ path: '.env' });
   });
 
   try {
-    // Create DB if not exists
-    await connection.query(`CREATE DATABASE IF NOT EXISTS \`${process.env.DB_NAME}\`;`);
+    // Use the provided database name directly
     await connection.query(`USE \`${process.env.DB_NAME}\`;`);
 
     // Read database.sql

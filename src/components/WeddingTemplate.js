@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 
 import { useEffect, useRef, useState } from 'react';
 import { motion, AnimatePresence, useInView } from 'framer-motion';
@@ -33,7 +33,7 @@ function OrnamentDivider({ light = false }) {
 }
 
 function BankLogo({ name, url }) {
-  if (url) return <img src={url} alt={name} style={{ width: '60px', height: '22px', objectFit: 'contain' }} />;
+  if (url) return <img src={url} alt={name} style={{ width: '80px', height: '80px', objectFit: 'contain' }} />;
   const n = (name || '').toLowerCase();
   if (n.includes('bca'))
     return <svg width="56" height="20" viewBox="0 0 100 32"><text x="0" y="24" fontFamily="Arial" fontWeight="bold" fontSize="22" fill="#003594">BCA</text></svg>;
@@ -626,39 +626,14 @@ function PrayerSection() {
 
 /* ═══════════════════════════════════════════
 /* GALLERY SECTION */
-function GallerySection({ gallery }) {
-  const [lightboxIdx, setLightboxIdx] = useState(null);
-  const [activeIndex, setActiveIndex] = useState(0);
-  const carouselRef = useRef(null);
-
+function GallerySection({ gallery, setLightboxIdx }) {
   const images = gallery && gallery.length > 0 ? gallery : Array(6).fill({ image_url: '', span_type: 'normal' });
-
-  const closeLightbox = () => setLightboxIdx(null);
-  const prevPhoto = (e) => { e.stopPropagation(); setLightboxIdx(function(i) { return (i - 1 + images.length) % images.length; }); };
-  const nextPhoto = (e) => { e.stopPropagation(); setLightboxIdx(function(i) { return (i + 1) % images.length; }); };
-
-  const handleScroll = (e) => {
-    if (!carouselRef.current) return;
-    const scrollLeft = e.target.scrollLeft;
-    // Calculate based on first child's width
-    const itemWidth = carouselRef.current.children[1].offsetWidth; 
-    const newIndex = Math.round(scrollLeft / itemWidth);
-    if(newIndex !== activeIndex) {
-      setActiveIndex(newIndex);
-    }
-  };
-
-  const scrollToSlide = (index) => {
-    if (!carouselRef.current) return;
-    const itemWidth = carouselRef.current.children[1].offsetWidth;
-    carouselRef.current.scrollTo({ left: index * itemWidth, behavior: 'smooth' });
-  };
 
   return (
     <div className="section-frame">
-      <div className="inset-card card-ivory" style={{ padding: '48px 0 40px', overflow: 'hidden' }}>
+      <div className="inset-card card-ivory" style={{ padding: '48px 12px 48px', overflow: 'hidden' }}>
         <Reveal>
-          <div style={{ textAlign: 'center', padding: '0 24px 32px' }}>
+          <div style={{ textAlign: 'center', padding: '0 12px 36px' }}>
             <p style={{ fontFamily: 'var(--font-sans)', fontSize: '0.58rem', letterSpacing: '0.35em', textTransform: 'uppercase', color: 'rgba(253,248,243,0.45)', marginBottom: '14px', fontWeight: 600 }}>Memories Together</p>
             <h2 style={{ fontFamily: 'var(--font-script)', fontSize: '3.4rem', color: '#FAF6F1', fontWeight: 400, lineHeight: 1, marginBottom: '20px' }}>Our Gallery</h2>
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '12px' }}>
@@ -669,109 +644,228 @@ function GallerySection({ gallery }) {
           </div>
         </Reveal>
 
-        <Reveal delay={0.1}>
-          <div style={{ position: 'relative', width: '100%', maxWidth: '100vw' }}>
-            <div 
-              ref={carouselRef}
-              onScroll={handleScroll}
-              style={{ 
-                display: 'flex', 
-                overflowX: 'auto', 
-                scrollSnapType: 'x mandatory', 
-                scrollBehavior: 'smooth',
-                padding: '0 8%',
-                paddingBottom: '32px',
-                pointerEvents: 'auto'
-              }}
-              className="no-scrollbar"
-            >
-              <style dangerouslySetInnerHTML={{__html: '.no-scrollbar::-webkit-scrollbar { display: none; } .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }'}} />
-              
-              {images.map((img, i) => (
-                <div 
-                  key={i} 
-                  style={{ 
-                    minWidth: '100%', 
-                    flex: '0 0 100%', 
-                    scrollSnapAlign: 'center', 
-                    padding: '0 8px'
-                  }}
+        <style dangerouslySetInnerHTML={{__html: `
+          .luxury-grid-item img { transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
+          @media (hover: hover) { .luxury-grid-item:hover img { transform: scale(1.08); } }
+        `}} />
+
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '10px', gridAutoFlow: 'dense', padding: '0 6px' }}>
+          {images.map((img, i) => {
+            let rowSpan = 1;
+            let colSpan = 1;
+            let aspectRatio = '1/1';
+            
+            if (img.span_type === 'tall') {
+               rowSpan = 2;
+               aspectRatio = '1/2.05';
+            } else if (img.span_type === 'wide') {
+               colSpan = 2;
+               aspectRatio = '2.1/1';
+            } else if (img.span_type === 'large') {
+               colSpan = 2;
+               rowSpan = 2;
+               aspectRatio = '1/1';
+            }
+
+            return (
+              <motion.div
+                key={i}
+                className="luxury-grid-item"
+                initial={{ opacity: 0, scale: 0.95, y: 30 }}
+                whileInView={{ opacity: 1, scale: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.1 }}
+                transition={{ duration: 0.8, delay: (i % 3) * 0.15, ease: [0.16, 1, 0.3, 1] }}
+                onClick={() => setLightboxIdx(i)}
+                style={{ 
+                  gridRow: `span ${rowSpan}`,
+                  gridColumn: `span ${colSpan}`,
+                  position: 'relative',
+                  borderRadius: '16px',
+                  overflow: 'hidden',
+                  cursor: 'pointer',
+                  aspectRatio: aspectRatio,
+                  boxShadow: '0 8px 24px rgba(0,0,0,0.15)',
+                  border: '1px solid rgba(205,175,120,0.3)',
+                  background: '#2B1110'
+                }}
+              >
+                {img.image_url ? (
+                  <img src={img.image_url} loading="lazy" style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
+                ) : (
+                  <div style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}><Heart size={24} color="rgba(253,248,243,0.2)" /></div>
+                )}
+                
+                {/* Inner gold frame decoration (very thin) */}
+                {/* <div style={{ position: 'absolute', inset: '10px', border: '1px solid rgba(205,175,120,0.25)', borderRadius: '8px', zIndex: 1, pointerEvents: 'none' }}></div> */}
+
+                {/* Luxury glass overlay with + icon */}
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  whileHover={{ opacity: 1 }}
+                  whileTap={{ opacity: 1 }}
+                  style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(26,10,9,0.7) 0%, rgba(26,10,9,0.1) 100%)', display: 'flex', alignItems: 'flex-end', justifyContent: 'center', paddingBottom: '20px', backdropFilter: 'blur(3px)', pointerEvents: 'none', zIndex: 2 }}
                 >
-                  <motion.div
-                    whileTap={{ scale: 0.98 }}
-                    onClick={() => setLightboxIdx(i)}
-                    style={{ 
-                      width: '100%', 
-                      aspectRatio: '3/4.2', 
-                      borderRadius: '16px', 
-                      overflow: 'hidden', 
-                      boxShadow: activeIndex === i ? '0 24px 48px rgba(0,0,0,0.4)' : '0 12px 24px rgba(0,0,0,0.15)',
-                      border: '1px solid rgba(205,175,120,0.2)',
-                      position: 'relative',
-                      cursor: 'pointer',
-                      transform: activeIndex === i ? 'scale(1)' : 'scale(0.92)',
-                      opacity: activeIndex === i ? 1 : 0.5,
-                      transition: 'all 0.5s cubic-bezier(0.25, 1, 0.5, 1)'
-                    }}
-                  >
-                    {img.image_url ? (
-                      <img src={img.image_url} alt={"Gallery " + (i+1)} loading="lazy" style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
-                    ) : (
-                      <div style={{ width: '100%', height: '100%', background: '#3D1A18' }}></div>
-                    )}
-                    <div style={{ position: 'absolute', inset: '16px', border: '1px solid rgba(205,175,120,0.3)', borderRadius: '10px', zIndex: 2, pointerEvents: 'none' }}></div>
-                  </motion.div>
-                </div>
-              ))}
-            </div>
-
-            <div style={{ display: 'flex', justifyContent: 'center', gap: '8px', marginTop: '-8px', flexWrap: 'wrap', padding: '0 24px' }}>
-              {images.map((_, i) => (
-                <div 
-                  key={i}
-                  onClick={() => scrollToSlide(i)}
-                  style={{
-                    width: activeIndex === i ? '24px' : '6px',
-                    height: '6px',
-                    borderRadius: '3px',
-                    background: activeIndex === i ? 'rgba(205,175,120,1)' : 'rgba(253,248,243,0.2)',
-                    transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
-                    cursor: 'pointer'
-                  }}
-                />
-              ))}
-            </div>
-          </div>
-        </Reveal>
-
-        <AnimatePresence>
-          {lightboxIdx !== null && (
-             <motion.div className="lightbox-overlay" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.3 }} onClick={closeLightbox}>
-             <motion.button whileTap={{ scale: 0.9 }} onClick={closeLightbox} style={{ position: 'absolute', top: '20px', right: '20px', background: 'rgba(0,0,0,0.4)', border: '1px solid rgba(205,175,120,0.4)', borderRadius: '50%', width: '40px', height: '40px', cursor: 'pointer', color: '#FAF6F1', display: 'flex', alignItems: 'center', justifyContent: 'center', backdropFilter: 'blur(10px)', zIndex: 10 }}>
-               <X size={16} />
-             </motion.button>
-             <motion.button whileTap={{ scale: 0.9 }} onClick={prevPhoto} style={{ position: 'absolute', left: '14px', top: '50%', transform: 'translateY(-50%)', background: 'rgba(0,0,0,0.4)', border: '1px solid rgba(205,175,120,0.4)', borderRadius: '50%', width: '44px', height: '44px', cursor: 'pointer', color: '#FAF6F1', fontSize: '1.5rem', display: 'flex', alignItems: 'center', justifyContent: 'center', backdropFilter: 'blur(10px)', zIndex: 10 }}>‹</motion.button>
-             <motion.button whileTap={{ scale: 0.9 }} onClick={nextPhoto} style={{ position: 'absolute', right: '14px', top: '50%', transform: 'translateY(-50%)', background: 'rgba(0,0,0,0.4)', border: '1px solid rgba(205,175,120,0.4)', borderRadius: '50%', width: '44px', height: '44px', cursor: 'pointer', color: '#FAF6F1', fontSize: '1.5rem', display: 'flex', alignItems: 'center', justifyContent: 'center', backdropFilter: 'blur(10px)', zIndex: 10 }}>›</motion.button>
-             <AnimatePresence mode="wait">
-               <motion.div key={lightboxIdx} initial={{ opacity: 0, scale: 0.92 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.92 }} transition={{ duration: 0.28 }} onClick={function(e) { e.stopPropagation(); }} style={{ borderRadius: '16px', overflow: 'hidden', boxShadow: '0 32px 100px rgba(0,0,0,0.8)', border: '1px solid rgba(205,175,120,0.2)' }}>
-                 {images[lightboxIdx] && images[lightboxIdx].image_url
-                   ? <img src={images[lightboxIdx].image_url} alt="" style={{ display: 'block', maxWidth: '88vw', maxHeight: '78vh', objectFit: 'contain' }} />
-                   : <div style={{ width: '70vw', height: '70vw', maxWidth: '320px', maxHeight: '320px', background: '#3D1A18', display: 'flex', alignItems: 'center', justifyContent: 'center' }}><Heart size={48} color="rgba(253,248,243,0.2)" /></div>
-                 }
-               </motion.div>
-             </AnimatePresence>
-             <div style={{ position: 'absolute', bottom: '24px', display: 'flex', alignItems: 'center', gap: '8px' }}>
-               {images.map(function(_, idx) {
-                 return <div key={idx} onClick={function(e) { e.stopPropagation(); setLightboxIdx(idx); }} style={{ width: idx === lightboxIdx ? '18px' : '6px', height: '6px', borderRadius: '3px', background: idx === lightboxIdx ? 'rgba(205,175,120,0.9)' : 'rgba(255,255,255,0.3)', cursor: 'pointer', transition: 'all 0.3s' }} />;
-               })}
-             </div>
-           </motion.div>
-          )}
-        </AnimatePresence>
+                  <div style={{ width: '36px', height: '36px', borderRadius: '50%', border: '1px solid rgba(205,175,120,0.5)', display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'rgba(0,0,0,0.4)', boxShadow: '0 4px 12px rgba(0,0,0,0.4)' }}>
+                    <span style={{ color: 'rgba(205,175,120,0.9)', fontSize: '1.2rem', lineHeight: '1', fontWeight: 300 }}>+</span>
+                  </div>
+                </motion.div>
+              </motion.div>
+            );
+          })}
+        </div>
       </div>
     </div>
   );
 }
+//     </div>
+//   );
+// }
+// function GallerySection({ gallery }) {
+//   const [lightboxIdx, setLightboxIdx] = useState(null);
+//   const [activeIndex, setActiveIndex] = useState(0);
+//   const carouselRef = useRef(null);
+
+//   const images = gallery && gallery.length > 0 ? gallery : Array(6).fill({ image_url: '', span_type: 'normal' });
+
+//   const closeLightbox = () => setLightboxIdx(null);
+//   const prevPhoto = (e) => { e.stopPropagation(); setLightboxIdx(function(i) { return (i - 1 + images.length) % images.length; }); };
+//   const nextPhoto = (e) => { e.stopPropagation(); setLightboxIdx(function(i) { return (i + 1) % images.length; }); };
+
+//   const handleScroll = (e) => {
+//     if (!carouselRef.current) return;
+//     const scrollLeft = e.target.scrollLeft;
+//     // Calculate based on first child's width
+//     const itemWidth = carouselRef.current.children[1].offsetWidth; 
+//     const newIndex = Math.round(scrollLeft / itemWidth);
+//     if(newIndex !== activeIndex) {
+//       setActiveIndex(newIndex);
+//     }
+//   };
+
+//   const scrollToSlide = (index) => {
+//     if (!carouselRef.current) return;
+//     const itemWidth = carouselRef.current.children[1].offsetWidth;
+//     carouselRef.current.scrollTo({ left: index * itemWidth, behavior: 'smooth' });
+//   };
+
+//   return (
+//     <div className="section-frame">
+//       <div className="inset-card card-ivory" style={{ padding: '48px 0 40px', overflow: 'hidden' }}>
+//         <Reveal>
+//           <div style={{ textAlign: 'center', padding: '0 24px 32px' }}>
+//             <p style={{ fontFamily: 'var(--font-sans)', fontSize: '0.58rem', letterSpacing: '0.35em', textTransform: 'uppercase', color: 'rgba(253,248,243,0.45)', marginBottom: '14px', fontWeight: 600 }}>Memories Together</p>
+//             <h2 style={{ fontFamily: 'var(--font-script)', fontSize: '3.4rem', color: '#FAF6F1', fontWeight: 400, lineHeight: 1, marginBottom: '20px' }}>Our Gallery</h2>
+//             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '12px' }}>
+//               <div style={{ height: '1px', width: '48px', background: 'linear-gradient(90deg, transparent, rgba(205,175,120,0.7))' }} />
+//               <div style={{ width: '5px', height: '5px', borderRadius: '50%', background: 'rgba(205,175,120,0.9)' }} />
+//               <div style={{ height: '1px', width: '48px', background: 'linear-gradient(90deg, rgba(205,175,120,0.7), transparent)' }} />
+//             </div>
+//           </div>
+//         </Reveal>
+
+//         <Reveal delay={0.1}>
+//           <div style={{ position: 'relative', width: '100%', maxWidth: '100vw' }}>
+//             <div 
+//               ref={carouselRef}
+//               onScroll={handleScroll}
+//               style={{ 
+//                 display: 'flex', 
+//                 overflowX: 'auto', 
+//                 scrollSnapType: 'x mandatory', 
+//                 scrollBehavior: 'smooth',
+//                 padding: '0 8%',
+//                 paddingBottom: '32px',
+//                 pointerEvents: 'auto'
+//               }}
+//               className="no-scrollbar"
+//             >
+//               <style dangerouslySetInnerHTML={{__html: '.no-scrollbar::-webkit-scrollbar { display: none; } .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }'}} />
+              
+//               {images.map((img, i) => (
+//                 <div 
+//                   key={i} 
+//                   style={{ 
+//                     minWidth: '100%', 
+//                     flex: '0 0 100%', 
+//                     scrollSnapAlign: 'center', 
+//                     padding: '0 8px'
+//                   }}
+//                 >
+//                   <motion.div
+//                     whileTap={{ scale: 0.98 }}
+//                     onClick={() => setLightboxIdx(i)}
+//                     style={{ 
+//                       width: '100%', 
+//                       aspectRatio: '3/4.2', 
+//                       borderRadius: '16px', 
+//                       overflow: 'hidden', 
+//                       boxShadow: activeIndex === i ? '0 24px 48px rgba(0,0,0,0.4)' : '0 12px 24px rgba(0,0,0,0.15)',
+//                       border: '1px solid rgba(205,175,120,0.2)',
+//                       position: 'relative',
+//                       cursor: 'pointer',
+//                       transform: activeIndex === i ? 'scale(1)' : 'scale(0.92)',
+//                       opacity: activeIndex === i ? 1 : 0.5,
+//                       transition: 'all 0.5s cubic-bezier(0.25, 1, 0.5, 1)'
+//                     }}
+//                   >
+//                     {img.image_url ? (
+//                       <img src={img.image_url} alt={"Gallery " + (i+1)} loading="lazy" style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
+//                     ) : (
+//                       <div style={{ width: '100%', height: '100%', background: '#3D1A18' }}></div>
+//                     )}
+//                     <div style={{ position: 'absolute', inset: '16px', border: '1px solid rgba(205,175,120,0.3)', borderRadius: '10px', zIndex: 2, pointerEvents: 'none' }}></div>
+//                   </motion.div>
+//                 </div>
+//               ))}
+//             </div>
+
+//             <div style={{ display: 'flex', justifyContent: 'center', gap: '8px', marginTop: '-8px', flexWrap: 'wrap', padding: '0 24px' }}>
+//               {images.map((_, i) => (
+//                 <div 
+//                   key={i}
+//                   onClick={() => scrollToSlide(i)}
+//                   style={{
+//                     width: activeIndex === i ? '24px' : '6px',
+//                     height: '6px',
+//                     borderRadius: '3px',
+//                     background: activeIndex === i ? 'rgba(205,175,120,1)' : 'rgba(253,248,243,0.2)',
+//                     transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
+//                     cursor: 'pointer'
+//                   }}
+//                 />
+//               ))}
+//             </div>
+//           </div>
+//         </Reveal>
+
+//         <AnimatePresence>
+//           {lightboxIdx !== null && (
+//              <motion.div className="lightbox-overlay" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.3 }} onClick={closeLightbox}>
+//              <motion.button whileTap={{ scale: 0.9 }} onClick={closeLightbox} style={{ position: 'absolute', top: '20px', right: '20px', background: 'rgba(0,0,0,0.4)', border: '1px solid rgba(205,175,120,0.4)', borderRadius: '50%', width: '40px', height: '40px', cursor: 'pointer', color: '#FAF6F1', display: 'flex', alignItems: 'center', justifyContent: 'center', backdropFilter: 'blur(10px)', zIndex: 10 }}>
+//                <X size={16} />
+//              </motion.button>
+//              <motion.button whileTap={{ scale: 0.9 }} onClick={prevPhoto} style={{ position: 'absolute', left: '14px', top: '50%', transform: 'translateY(-50%)', background: 'rgba(0,0,0,0.4)', border: '1px solid rgba(205,175,120,0.4)', borderRadius: '50%', width: '44px', height: '44px', cursor: 'pointer', color: '#FAF6F1', fontSize: '1.5rem', display: 'flex', alignItems: 'center', justifyContent: 'center', backdropFilter: 'blur(10px)', zIndex: 10 }}>‹</motion.button>
+//              <motion.button whileTap={{ scale: 0.9 }} onClick={nextPhoto} style={{ position: 'absolute', right: '14px', top: '50%', transform: 'translateY(-50%)', background: 'rgba(0,0,0,0.4)', border: '1px solid rgba(205,175,120,0.4)', borderRadius: '50%', width: '44px', height: '44px', cursor: 'pointer', color: '#FAF6F1', fontSize: '1.5rem', display: 'flex', alignItems: 'center', justifyContent: 'center', backdropFilter: 'blur(10px)', zIndex: 10 }}>›</motion.button>
+//              <AnimatePresence mode="wait">
+//                <motion.div key={lightboxIdx} initial={{ opacity: 0, scale: 0.92 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.92 }} transition={{ duration: 0.28 }} onClick={function(e) { e.stopPropagation(); }} style={{ borderRadius: '16px', overflow: 'hidden', boxShadow: '0 32px 100px rgba(0,0,0,0.8)', border: '1px solid rgba(205,175,120,0.2)' }}>
+//                  {images[lightboxIdx] && images[lightboxIdx].image_url
+//                    ? <img src={images[lightboxIdx].image_url} alt="" style={{ display: 'block', maxWidth: '88vw', maxHeight: '78vh', objectFit: 'contain' }} />
+//                    : <div style={{ width: '70vw', height: '70vw', maxWidth: '320px', maxHeight: '320px', background: '#3D1A18', display: 'flex', alignItems: 'center', justifyContent: 'center' }}><Heart size={48} color="rgba(253,248,243,0.2)" /></div>
+//                  }
+//                </motion.div>
+//              </AnimatePresence>
+//              <div style={{ position: 'absolute', bottom: '24px', display: 'flex', alignItems: 'center', gap: '8px' }}>
+//                {images.map(function(_, idx) {
+//                  return <div key={idx} onClick={function(e) { e.stopPropagation(); setLightboxIdx(idx); }} style={{ width: idx === lightboxIdx ? '18px' : '6px', height: '6px', borderRadius: '3px', background: idx === lightboxIdx ? 'rgba(205,175,120,0.9)' : 'rgba(255,255,255,0.3)', cursor: 'pointer', transition: 'all 0.3s' }} />;
+//                })}
+//              </div>
+//            </motion.div>
+//           )}
+//         </AnimatePresence>
+//       </div>
+//     </div>
+//   );
+// }
 /* ═══════════════════════════════════════════
    GIFT SECTION
    ═══════════════════════════════════════════ */
@@ -949,15 +1043,15 @@ function GuestbookSection({ guestName }) {
    ═══════════════════════════════════════════ */
 function ClosingSection({ bride, groom }) {
   return (
-    <div className="section-frame">
-      <div className="inset-card card-dark" style={{ borderRadius: '24px 24px 80px 80px' }}>
+    <div className="section-frame" style={{ backgroundImage: "url('/assets/gallery/9.jpg')", padding: 0, overflow: 'hidden' }}>
+      <div style={{ position: 'relative', zIndex: 2, padding: '60px 24px', background: 'linear-gradient(to top, rgba(26, 10, 9, 0.95) 0%, rgba(26, 10, 9, 0.3) 100%)', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', minHeight: '400px' }}>
         <Reveal>
-          <div style={{ marginTop: '24px' }}>
-            <p style={{ fontFamily: 'var(--font-sans)', fontSize: '0.62rem', letterSpacing: '0.25em', textTransform: 'uppercase', color: 'rgba(253,248,243,0.5)', marginBottom: '12px', fontWeight: 600 }}>Wassalamualaikum Wr. Wb.</p>
-            <h3 className="shimmer-text" style={{ fontFamily: 'var(--font-script)', fontSize: '3rem', fontWeight: 400, marginBottom: '12px' }}>
-              {bride?.nickname || 'Debby'} <span style={{ fontFamily: 'var(--font-display)', fontStyle: 'italic', color: '#fff', opacity: 0.8 }}>&amp;</span> {groom?.nickname || 'Alam'}
+          <div style={{ textAlign: 'center' }}>
+            <p style={{ fontFamily: 'var(--font-sans)', fontSize: '0.62rem', letterSpacing: '0.25em', textTransform: 'uppercase', color: 'rgba(253,248,243,0.7)', marginBottom: '16px', fontWeight: 600 }}>Wassalamualaikum Wr. Wb.</p>
+            <h3 className="shimmer-text" style={{ fontFamily: 'var(--font-script)', fontSize: '3.6rem', fontWeight: 400, marginBottom: '24px', lineHeight: 1.1 }}>
+              {bride?.nickname || 'Debby'} <span style={{ fontFamily: 'var(--font-display)', fontStyle: 'italic', color: '#fff', opacity: 0.8, fontSize: '2rem' }}>&amp;</span><br/>{groom?.nickname || 'Alam'}
             </h3>
-            <p style={{ fontFamily: 'var(--font-display)', fontStyle: 'italic', fontSize: '0.92rem', color: 'rgba(253,248,243,0.6)', maxWidth: '280px', margin: '0 auto', lineHeight: 1.6 }}>
+            <p style={{ fontFamily: 'var(--font-display)', fontStyle: 'italic', fontSize: '0.98rem', color: 'rgba(253,248,243,0.8)', maxWidth: '280px', margin: '0 auto', lineHeight: 1.6 }}>
               Merupakan kehormatan dan kebahagiaan bagi kami atas kehadiran Anda.
             </p>
           </div>
@@ -973,6 +1067,7 @@ function ClosingSection({ bride, groom }) {
 export default function WeddingTemplate({ guestName }) {
   const [isOpen, setIsOpen] = useState(false);
   const [musicPlaying, setMusicPlaying] = useState(false);
+  const [lightboxIdx, setLightboxIdx] = useState(null);
   const audioRef = useRef(null);
 
   const { settings, couples, events, stories, gifts, gallery, rsvp_whatsapp } = weddingData;
@@ -1012,7 +1107,7 @@ export default function WeddingTemplate({ guestName }) {
               <EventSection events={events} />
               {/* <StorySection stories={stories} /> */}
               <PrayerSection />
-              <GallerySection gallery={gallery} />
+              <GallerySection gallery={gallery} setLightboxIdx={setLightboxIdx} />
               <GiftSection gifts={gifts} />
               <GuestbookSection guestName={guestName} />
               <ClosingSection bride={bride} groom={groom} />
@@ -1030,6 +1125,78 @@ export default function WeddingTemplate({ guestName }) {
           {musicPlaying ? <Music size={18} /> : <VolumeX size={18} />}
         </button>
       )}
+
+      {/* Global Lightbox Overlay */}
+      <AnimatePresence>
+        {lightboxIdx !== null && (
+           <motion.div 
+             className="lightbox-overlay" 
+             initial={{ opacity: 0 }} 
+             animate={{ opacity: 1 }} 
+             exit={{ opacity: 0 }} 
+             transition={{ duration: 0.3 }} 
+             onClick={() => setLightboxIdx(null)}
+           >
+             <motion.button 
+               whileTap={{ scale: 0.9 }} 
+               onClick={() => setLightboxIdx(null)} 
+               style={{ position: 'absolute', top: '20px', right: '20px', background: 'rgba(0,0,0,0.4)', border: '1px solid rgba(205,175,120,0.4)', borderRadius: '50%', width: '40px', height: '40px', cursor: 'pointer', color: '#FAF6F1', display: 'flex', alignItems: 'center', justifyContent: 'center', backdropFilter: 'blur(10px)', zIndex: 1001 }}
+             >
+               <X size={16} />
+             </motion.button>
+
+             <motion.button 
+               whileTap={{ scale: 0.9 }} 
+               onClick={(e) => { e.stopPropagation(); setLightboxIdx((i) => (i - 1 + gallery.length) % gallery.length); }} 
+               style={{ position: 'absolute', left: '14px', top: '50%', transform: 'translateY(-50%)', background: 'rgba(0,0,0,0.4)', border: '1px solid rgba(205,175,120,0.4)', borderRadius: '50%', width: '44px', height: '44px', cursor: 'pointer', color: '#FAF6F1', fontSize: '1.5rem', display: 'flex', alignItems: 'center', justifyContent: 'center', backdropFilter: 'blur(10px)', zIndex: 1001 }}
+             >
+               ‹
+             </motion.button>
+
+             <motion.button 
+               whileTap={{ scale: 0.9 }} 
+               onClick={(e) => { e.stopPropagation(); setLightboxIdx((i) => (i + 1) % gallery.length); }} 
+               style={{ position: 'absolute', right: '14px', top: '50%', transform: 'translateY(-50%)', background: 'rgba(0,0,0,0.4)', border: '1px solid rgba(205,175,120,0.4)', borderRadius: '50%', width: '44px', height: '44px', cursor: 'pointer', color: '#FAF6F1', fontSize: '1.5rem', display: 'flex', alignItems: 'center', justifyContent: 'center', backdropFilter: 'blur(10px)', zIndex: 1001 }}
+             >
+               ›
+             </motion.button>
+
+             <AnimatePresence mode="wait">
+               <motion.div 
+                 key={lightboxIdx} 
+                 initial={{ opacity: 0, scale: 0.92 }} 
+                 animate={{ opacity: 1, scale: 1 }} 
+                 exit={{ opacity: 0, scale: 0.92 }} 
+                 transition={{ duration: 0.28 }} 
+                 onClick={(e) => e.stopPropagation()} 
+                 style={{ borderRadius: '16px', overflow: 'hidden', boxShadow: '0 32px 100px rgba(0,0,0,0.8)', border: '1px solid rgba(205,175,120,0.2)' }}
+               >
+                 {gallery[lightboxIdx] && gallery[lightboxIdx].image_url
+                   ? <img src={gallery[lightboxIdx].image_url} alt="" style={{ display: 'block', maxWidth: '88vw', maxHeight: '78vh', objectFit: 'contain' }} />
+                   : <div style={{ width: '70vw', height: '70vw', maxWidth: '320px', maxHeight: '320px', background: '#3D1A18', display: 'flex', alignItems: 'center', justifyContent: 'center' }}><Heart size={48} color="rgba(253,248,243,0.2)" /></div>
+                 }
+               </motion.div>
+             </AnimatePresence>
+
+             <div style={{ position: 'absolute', bottom: '24px', display: 'flex', alignItems: 'center', gap: '8px' }}>
+               {gallery.map((_, idx) => (
+                 <div 
+                   key={idx} 
+                   onClick={(e) => { e.stopPropagation(); setLightboxIdx(idx); }} 
+                   style={{ 
+                     width: idx === lightboxIdx ? '18px' : '6px', 
+                     height: '6px', 
+                     borderRadius: '3px', 
+                     background: idx === lightboxIdx ? 'rgba(205,175,120,0.9)' : 'rgba(255,255,255,0.3)', 
+                     cursor: 'pointer', 
+                     transition: 'all 0.3s' 
+                   }} 
+                 />
+               ))}
+             </div>
+           </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }

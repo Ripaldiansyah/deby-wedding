@@ -44,40 +44,32 @@ export const weddingData = {
     bride: {
       full_name: "Deby Azizah",
       nickname: "Deby",
-      parent_prefix: "Putri dari",
-      father_name: "Bapak ...",
-      mother_name: "Ibu ...",
+      parent_prefix: "Putri Bungsi dari",
+      father_name: "Bapak H. Jamaludin",
+      mother_name: "Ibu Hj. Inah Maryanah H. Baman",
       instagram_url: "https://instagram.com/",
     },
     groom: {
-      full_name: "Alam",
+      full_name: "M. Rifqi Alam Ramadhan",
       nickname: "Alam",
-      parent_prefix: "Putra dari",
-      father_name: "Bapak ...",
-      mother_name: "Ibu ...",
+      parent_prefix: "Putra Pertama dari ",
+      father_name: "Bapak Bambang Agung Muljanto",
+      mother_name: "Ibu Irmawati",
       instagram_url: "https://instagram.com/",
     },
   },
 
   events: [
     {
-      type: "Akad Nikah",
+      type: "Akad Nikah dan Resepsi",
       date: "2026-06-06",
       start_time: "08:00",
-      end_time: "10:00",
+      end_time: "16:00",
       location_name: "Kediaman Mempelai Wanita",
-      address: "Jl. Contoh No. 123, Kota Bekasi",
-      map_url: "https://maps.google.com/?q=",
+      address: "Lapangan Komplek Huma Akasia RT 001 RW 008, Kelurahan Jatiwarna, Kecamatan Pondok Melati, Kota Bekasi",
+      map_url: "https://maps.app.goo.gl/kUcmyQwGxN3GoHmR6?g_st=iw",
     },
-    {
-      type: "Resepsi",
-      date: "2025-04-06",
-      start_time: "11:00",
-      end_time: "14:00",
-      location_name: "Gedung Serbaguna",
-      address: "Jl. Serbaguna No. 456, Kota Bekasi",
-      map_url: "https://maps.google.com/?q=",
-    },
+    
   ],
 
   stories: [
@@ -113,7 +105,7 @@ export const weddingData = {
     { image_url: "/assets/gallery/8.jpg", span_type: "large" },
     { image_url: "/assets/gallery/9.jpg", span_type: "normal" },
     { image_url: "/assets/gallery/10.jpg", span_type: "normal" },
-    { image_url: "/assets/gallery/11.jpg", span_type: "wide" },
+    { image_url: "/assets/gallery/11.jpg", span_type: "normal" },
     { image_url: "/assets/gallery/12.jpg", span_type: "normal" },
   ],
 

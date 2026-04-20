@@ -1,5 +1,4 @@
-CREATE DATABASE IF NOT EXISTS wedding_db;
-USE wedding_db;
+-- Database initialized externally
 
 CREATE TABLE IF NOT EXISTS site_settings (
   setting_key VARCHAR(50) PRIMARY KEY,
