@@ -38,13 +38,14 @@ export const weddingData = {
     bg_image_url: "/assets/main/bg.jpg",  // Kosongkan jika tidak pakai background
     music_url: "/assets/main/music.mp3",
     video_url: "/assets/main/video.mp4",
+    video_rewind_time: 13.5, // Ganti angka ini untuk menentukan ke detik berapa video mundur (misal 10.5 detik)
   },
 
   couples: {
     bride: {
       full_name: "Deby Azizah",
       nickname: "Deby",
-      parent_prefix: "Putri Bungsi dari",
+      parent_prefix: "Putri Bungsu dari",
       father_name: "Bapak H. Jamaludin",
       mother_name: "Ibu Hj. Inah Maryanah H. Baman",
       instagram_url: "https://instagram.com/",
@@ -61,9 +62,18 @@ export const weddingData = {
 
   events: [
     {
-      type: "Akad Nikah dan Resepsi",
+      type: "Akad Nikah",
       date: "2026-06-06",
       start_time: "08:00",
+      end_time: "10:00",
+      location_name: "Kediaman Mempelai Wanita",
+      address: "Lapangan Komplek Huma Akasia RT 001 RW 008, Kelurahan Jatiwarna, Kecamatan Pondok Melati, Kota Bekasi",
+      map_url: "https://maps.app.goo.gl/kUcmyQwGxN3GoHmR6?g_st=iw",
+    },
+    {
+      type: "Resepsi",
+      date: "2026-06-06",
+      start_time: "11:00",
       end_time: "16:00",
       location_name: "Kediaman Mempelai Wanita",
       address: "Lapangan Komplek Huma Akasia RT 001 RW 008, Kelurahan Jatiwarna, Kecamatan Pondok Melati, Kota Bekasi",

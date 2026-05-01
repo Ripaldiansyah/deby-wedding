@@ -50,6 +50,26 @@ function InstagramIcon() {
   );
 }
 
+function SectionTopFlower() {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: -20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.1 }}
+      transition={{ duration: 1.5, ease: "easeOut" }}
+      style={{ position: 'absolute', top: '-60px', left: 0, right: 0, display: 'flex', justifyContent: 'center', zIndex: 10, pointerEvents: 'none' }}
+    >
+      <motion.img 
+        src="/assets/main/flower2.png" 
+        alt="Top Flower"
+        animate={{ y: [0, -5, 0], scale: [1, 1.02, 1] }}
+        transition={{ repeat: Infinity, duration: 6, ease: "easeInOut" }}
+        style={{ width: '100%', maxWidth: '400px', objectFit: 'contain', transformOrigin: 'top center' }}
+      />
+    </motion.div>
+  );
+}
+
 /* ═══════════════════════════════════════════
    HERO LEFT PANEL
    ═══════════════════════════════════════════ */
@@ -188,14 +208,28 @@ function RightHeroVideo({ settings, bride, groom }) {
     ? new Date(settings.hero_date + 'T00:00:00').toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' })
     : '6 April 2025';
 
+  const [showHexagon, setShowHexagon] = useState(false);
+
+  useEffect(() => {
+    if (!hasVideo) {
+      const t = setTimeout(() => setShowHexagon(true), 4000);
+      return () => clearTimeout(t);
+    }
+  }, [hasVideo]);
+
   return (
     
     <div style={{ position: 'relative', minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden', background: '#1a0a09' }}>
       {hasVideo ? (
         <video 
           autoPlay muted playsInline 
+          onTimeUpdate={(e) => {
+            if (e.target.currentTime >= 7 && !showHexagon) {
+              setShowHexagon(true);
+            }
+          }}
           onEnded={(e) => {
-            e.target.currentTime = 6;
+            e.target.currentTime = 11;
             e.target.play();
           }}
           style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', objectFit: 'cover' }} 
@@ -205,13 +239,54 @@ function RightHeroVideo({ settings, bride, groom }) {
         <div style={{ position: 'absolute', inset: 0, backgroundImage: `url(${settings.photo_hero})`, backgroundSize: 'cover', backgroundPosition: 'center' }} />
       ) : null}
 
-      <div style={{ position: 'absolute', inset: 0, background: 'rgba(26, 10, 9, 0.65)', zIndex: 0 }} />
+      {/* <div style={{ position: 'absolute', inset: 0, background: 'rgba(26, 10, 9, 0.65)', zIndex: 0 }} /> */}
 
-      <div style={{ position: 'relative', zIndex: 3, textAlign: 'center', padding: '0 24px', width: '100%' }}>
+      <AnimatePresence>
+        {showHexagon && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0, scale: 0.8 }}
+            transition={{ duration: 0.5 }}
+            style={{
+              position: 'absolute',
+              // top: '50%',
+              // left: '50%',
+              // marginTop: '-103px',
+              // marginLeft: '-90px',
+              zIndex: 10,
+              width: '100vw',
+              height: '100vh',
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}
+          >
+            <svg style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', zIndex: -1 }} viewBox="0 0 100 150" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <motion.path 
+                d="M 5 75 L 5 48 C 5 42 7 38 10 36 L 45 9 C 48 7 52 7 55 9 L 90 36 C 93 38 95 42 95 48 L 95 102 C 95 108 93 112 90 114 L 55 141 C 52 143 48 143 45 141 L 10 114 C 7 112 5 108 5 102 Z"
+                stroke="rgba(253,248,243,0.6)" 
+                strokeWidth="1.2"
+                initial={{ pathLength: 0, fill: "rgba(26,10,9,0)" }}
+                animate={{ pathLength: 1, fill: "rgba(26,10,9,0.5)" }}
+                transition={{ duration: 2.5, ease: "easeInOut" }}
+              />
+              <motion.path 
+                d="M 5 75 L 5 48 C 5 42 7 38 10 36 L 45 9 C 48 7 52 7 55 9 L 90 36 C 93 38 95 42 95 48 L 95 102 C 95 108 93 112 90 114 L 55 141 C 52 143 48 143 45 141 L 10 114 C 7 112 5 108 5 102 Z"
+                stroke="rgba(205,175,120,0.8)" 
+                strokeWidth="0.8" 
+                transform="translate(50, 75) scale(0.94) translate(-50, -75)"
+                initial={{ pathLength: 0 }}
+                animate={{ pathLength: 1 }}
+                transition={{ duration: 2.5, ease: "easeInOut", delay: 0.3 }}
+              />
+            </svg>
+            <div style={{ position: 'relative', zIndex: 3, textAlign: 'center', padding: '0 24px', width: '100%' }}>
         <motion.div
            initial={{ opacity: 0 }}
            animate={{ opacity: 1 }}
-           transition={{ delay: 6, duration: 2, ease: "easeOut" }}
+           transition={{ delay: 2, duration: 2, ease: "easeOut" }}
         >
           <p style={{ fontFamily: 'var(--font-sans)', fontSize: '0.62rem', letterSpacing: '0.3em', textTransform: 'uppercase', color: 'rgba(253,248,243,0.65)', marginBottom: '20px' }}>
             {settings?.hero_greeting || 'THE WEDDING OF'}
@@ -230,6 +305,11 @@ function RightHeroVideo({ settings, bride, groom }) {
           </p>
         </motion.div>
       </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      
     </div>
   );
 }
@@ -239,7 +319,8 @@ function RightHeroVideo({ settings, bride, groom }) {
    ═══════════════════════════════════════════ */
 function QuoteSection({ settings }) {
   return (
-    <div className="section-frame">
+    <div className="section-frame" style={{ position: 'relative' }}>
+      <SectionTopFlower />
       <div className="inset-card card-ivory">
         <Reveal>
           <h2 style={{ fontFamily: 'var(--font-script)', fontSize: '3.2rem', color: '#FAF6F1', marginBottom: '24px', fontWeight: 400 }}>
@@ -271,28 +352,48 @@ function PersonCard({ person, photo_url, delay = 0, isBride = false }) {
     <Reveal delay={delay}>
       <div style={{ textAlign: 'center', marginBottom: '40px', position: 'relative' }}>
         
-        {/* {isBride && (
+        
           <motion.img 
-            src="/assets/main/pelepah.png"
-            initial={{ opacity: 0, scaleY: 0 }}
-            whileInView={{ opacity: 1, scaleY: 1, rotate: 95 }}
+            src="/assets/main/coconut-tree.png"
+            initial={{ opacity: 0, clipPath: "inset(100% 0% 0% 0%)" }}
+            whileInView={{ opacity: 1, clipPath: "inset(0% 0% 0% 0%)" }}
             viewport={{ once: true, margin: "0px 0px -50px 0px" }}
-            transition={{ duration: 1.5, ease: 'easeOut', delay: delay + 0.4 }}
+            
+            transition={{ duration: 2, ease: [0.45, 0, 0.55, 1], delay:  0.4 }}
             style={{ 
+              // overflow: "hidden",
               position: 'absolute', 
-              top: '-10px', 
-              left: '-20%',
-              marginLeft: '-130px',
-              height: '240px',
-              width: '240px',
+              top: '-6  0px', 
+              right: '40%',
+              marginLeft: '0px',
+              height: '310px',
+              width: '420px',
               objectFit: 'contain',
-              transformOrigin: 'bottom center',
-              zIndex: 10, 
+              // transformOrigin: ' center',
+              zIndex: -1, 
               pointerEvents: 'none' 
             }}
           />
-        )} */}
-
+          {/* <motion.img 
+            src="/assets/main/pelepah.png"
+            initial={{ opacity: 0, clipPath: "inset(100% 0% 0% 0%)" }}
+            whileInView={{ opacity: 1, clipPath: "inset(0% 0% 0% 0%)" }}
+            viewport={{ once: true, margin: "0px 0px -50px 0px" }}
+            transition={{ duration: 2, ease: [0.45, 0, 0.55, 1], delay:  0.4 }}
+            style={{ 
+              // overflow: "hidden",
+              position: 'absolute', 
+              top: '-6  0px', 
+              right: '40%',
+              marginLeft: '0px',
+              height: '310px',
+              width: '420px',
+              objectFit: 'contain',
+              // transformOrigin: ' center',
+              zIndex: -1, 
+              pointerEvents: 'none' 
+            }}
+          /> */}
         {/* Oval photo */}
         <div style={{
           width: '160px', height: '220px', borderRadius: '80px 80px 80px 80px',
@@ -305,6 +406,7 @@ function PersonCard({ person, photo_url, delay = 0, isBride = false }) {
             ? <img src={photo_url} alt={person.full_name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
             : <Heart size={36} color="rgba(253,248,243,0.4)" />}
         </div>
+        <br></br>
 
         <h3 className="shimmer-text" style={{ fontFamily: 'var(--font-script)', fontSize: '2.6rem', fontWeight: 400, lineHeight: 1.2, marginBottom: '8px' }}>
           {person.nickname}
@@ -318,11 +420,11 @@ function PersonCard({ person, photo_url, delay = 0, isBride = false }) {
         <p style={{ fontFamily: 'var(--font-sans)', fontSize: '0.78rem', color: 'rgba(253,248,243,0.7)', lineHeight: 1.7 }}>
           {person.father_name}<br />&amp; {person.mother_name}
         </p>
-        {igHandle && (
+        {/* {igHandle && (
           <a href={person.instagram_url} target="_blank" rel="noopener noreferrer" className="ig-btn" style={{ marginTop: '14px', color: '#FAF6F1', borderColor: 'rgba(253,248,243,0.3)', background: 'rgba(253,248,243,0.05)' }}>
             <InstagramIcon /> {igHandle}
           </a>
-        )}
+        )} */}
       </div>
     </Reveal>
   );
@@ -330,8 +432,10 @@ function PersonCard({ person, photo_url, delay = 0, isBride = false }) {
 
 function MainCoupleSection({ bride, groom, settings }) {
   return (
-    <div className="section-frame">
+    <div className="section-frame" style={{ position: 'relative' }}>
+      <SectionTopFlower />
       <div className="inset-card card-dark">
+     
         <Reveal>
         <motion.div
         animate={{ 
@@ -364,6 +468,8 @@ function MainCoupleSection({ bride, groom, settings }) {
             {settings?.intro_text || 'Dengan memohon Rahmat & Ridho Allah SWT, kami mengundang Bapak/Ibu/Saudara/i.'}
           </p>
         </Reveal>
+        
+        
 
         <PersonCard person={bride} photo_url={settings?.photo_bride} delay={0.2} isBride={true} />
 
@@ -411,6 +517,7 @@ function CountdownSection({ settings, bride, groom }) {
 
   return (
     <div className="section-frame" style={{ position: 'relative' }}>
+      <SectionTopFlower />
       {/* Ornamen Bunga Pojok Kiri Atas */}
       <motion.div
         animate={{ 
@@ -549,7 +656,8 @@ function EventCard({ event, delay = 0 }) {
 function EventSection({ events }) {
   if (!events || events.length === 0) return null;
   return (
-    <div className="section-frame">
+    <div className="section-frame" style={{ position: 'relative' }}>
+      <SectionTopFlower />
       <div className="inset-card card-dark">
         <Reveal>
           <p className="section-label" style={{ color: 'rgba(253,248,243,0.6)' }}>Waktu &amp; Tempat</p>
@@ -569,7 +677,8 @@ function EventSection({ events }) {
 function StorySection({ stories }) {
   if (!stories || stories.length === 0) return null;
   return (
-    <div className="section-frame">
+    <div className="section-frame" style={{ position: 'relative' }}>
+      <SectionTopFlower />
       <div className="inset-card card-ivory">
         <Reveal>
           <p className="section-label" style={{ color: 'rgba(253,248,243,0.6)' }}>Kisah Kami</p>
@@ -601,7 +710,8 @@ function StorySection({ stories }) {
    ═══════════════════════════════════════════ */
 function PrayerSection() {
   return (
-    <div className="section-frame">
+    <div className="section-frame" style={{ position: 'relative' }}>
+      <SectionTopFlower />
       <div className="inset-card card-dark" style={{ borderRadius: '24px' }}>
         <Reveal>
           <div style={{ background: 'rgba(253,248,243,0.05)', border: '1px solid rgba(253,248,243,0.1)', borderRadius: '16px', padding: '40px 24px' }}>
@@ -630,7 +740,8 @@ function GallerySection({ gallery, setLightboxIdx }) {
   const images = gallery && gallery.length > 0 ? gallery : Array(6).fill({ image_url: '', span_type: 'normal' });
 
   return (
-    <div className="section-frame">
+    <div className="section-frame" style={{ position: 'relative' }}>
+      <SectionTopFlower />
       <div className="inset-card card-ivory" style={{ padding: '48px 12px 48px', overflow: 'hidden' }}>
         <Reveal>
           <div style={{ textAlign: 'center', padding: '0 12px 36px' }}>
