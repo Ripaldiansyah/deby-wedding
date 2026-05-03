@@ -50,7 +50,10 @@ function OrnamentDivider({ light = false }) {
 function BankLogo({ name, url }) {
   if (url)
     return (
-      <img loading="lazy" decoding="async" src={url}
+      <img
+        loading="lazy"
+        decoding="async"
+        src={url}
         alt={name}
         style={{ width: "80px", height: "80px", objectFit: "contain" }}
       />
@@ -256,7 +259,9 @@ function CoverPanel({ onOpen, guestName, bride, groom, settings }) {
             }}
           >
             {settings?.photo_story ? (
-              <div style={{ position: "relative", width: "100%", height: "100%" }}>
+              <div
+                style={{ position: "relative", width: "100%", height: "100%" }}
+              >
                 <Image
                   src={settings.photo_story}
                   alt="Couple Story"
@@ -673,7 +678,9 @@ function PersonCard({ person, photo_url, delay = 0, isBride = false }) {
           }}
         >
           {photo_url ? (
-            <div style={{ position: "relative", width: "100%", height: "100%" }}>
+            <div
+              style={{ position: "relative", width: "100%", height: "100%" }}
+            >
               <Image
                 src={photo_url}
                 alt={person.full_name}
@@ -746,10 +753,14 @@ function PersonCard({ person, photo_url, delay = 0, isBride = false }) {
 function MainCoupleSection({ bride, groom, settings }) {
   return (
     <div
-      className="section-frame"
+      className="section-frame "
       style={{
         position: "relative",
+        minHeight: "100vh",
         backgroundImage: "url('/assets/main/bg_1.jpeg')",
+        backgroundSize: "100% 100%", // Padanan untuk bg-full
+        backgroundAttachment: "fixed",
+        backgroundPosition: "top",
       }}
     >
       <div className="inset-card card-dark">
@@ -772,7 +783,10 @@ function MainCoupleSection({ bride, groom, settings }) {
               zIndex: 1,
             }}
           >
-            <motion.img loading="lazy" decoding="async" src="/assets/main/wayang1.png"
+            <motion.img
+              loading="lazy"
+              decoding="async"
+              src="/assets/main/wayang1.png"
               alt="Ornament Bunga Kiri Atas"
               initial={{ opacity: 0, scale: 0.8, rotate: 180 }}
               whileInView={{ opacity: 1, scale: 1, rotate: 0 }}
@@ -920,7 +934,10 @@ function CountdownSection({ settings, bride, groom }) {
           zIndex: 4,
         }}
       >
-        <motion.img loading="lazy" decoding="async" src="/assets/main/bunga.png"
+        <motion.img
+          loading="lazy"
+          decoding="async"
+          src="/assets/main/bunga.png"
           alt="Ornament Bunga Kiri Atas"
           initial={{ opacity: 0, scale: 0.8, rotate: 180 }}
           whileInView={{ opacity: 0.8, scale: 1, rotate: 60 }}
@@ -950,7 +967,10 @@ function CountdownSection({ settings, bride, groom }) {
           zIndex: 4,
         }}
       >
-        <motion.img loading="lazy" decoding="async" src="/assets/main/bunga.png"
+        <motion.img
+          loading="lazy"
+          decoding="async"
+          src="/assets/main/bunga.png"
           alt="Ornament Bunga Kanan Bawah"
           initial={{ opacity: 0, scale: 0.4 }}
           whileInView={{ opacity: 0.8, scale: 1, rotate: 30 }}
@@ -1203,7 +1223,17 @@ function EventCard({ event, delay = 0 }) {
 function EventSection({ events }) {
   if (!events || events.length === 0) return null;
   return (
-    <div className="section-frame" style={{ position: "relative" }}>
+    <div
+      className="section-frame"
+      style={{
+        position: "relative",
+        minHeight: "100vh",
+
+        backgroundSize: "100% 100%", // Padanan untuk bg-full
+        backgroundAttachment: "fixed",
+        backgroundPosition: "top",
+      }}
+    >
       <div className="inset-card card-dark">
         <Reveal>
           <p
@@ -1218,7 +1248,7 @@ function EventSection({ events }) {
               fontSize: "3.2rem",
               color: "#FAF6F1",
               fontWeight: 400,
-              marginBottom: "40px",
+              marginBottom: "10px",
             }}
           >
             Acara Pernikahan
@@ -2574,7 +2604,14 @@ export default function WeddingTemplate({ guestName }) {
                 }}
               >
                 {gallery[lightboxIdx] && gallery[lightboxIdx].image_url ? (
-                  <div style={{ position: "relative", width: "88vw", maxWidth: "700px", height: "70vh" }}>
+                  <div
+                    style={{
+                      position: "relative",
+                      width: "88vw",
+                      maxWidth: "700px",
+                      height: "70vh",
+                    }}
+                  >
                     <Image
                       src={gallery[lightboxIdx].image_url}
                       alt="Wedding Gallery"
