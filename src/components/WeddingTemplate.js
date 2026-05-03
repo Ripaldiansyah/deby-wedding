@@ -49,8 +49,7 @@ function OrnamentDivider({ light = false }) {
 function BankLogo({ name, url }) {
   if (url)
     return (
-      <img
-        src={url}
+      <img loading="lazy" decoding="async" src={url}
         alt={name}
         style={{ width: "80px", height: "80px", objectFit: "contain" }}
       />
@@ -256,8 +255,7 @@ function CoverPanel({ onOpen, guestName, bride, groom, settings }) {
             }}
           >
             {settings?.photo_story ? (
-              <img
-                src={settings.photo_story}
+              <img loading="lazy" decoding="async" src={settings.photo_story}
                 alt="Couple"
                 style={{ width: "100%", height: "100%", objectFit: "cover" }}
               />
@@ -405,6 +403,8 @@ function RightHeroVideo({ settings, bride, groom }) {
           autoPlay
           muted
           playsInline
+          preload="metadata"
+          poster={settings.photo_hero}
           onTimeUpdate={(e) => {
             if (e.target.currentTime >= 7 && !showHexagon) {
               setShowHexagon(true);
@@ -612,8 +612,7 @@ function PersonCard({ person, photo_url, delay = 0, isBride = false }) {
           position: "relative",
         }}
       >
-        {/* <motion.img
-          src="/assets/main/coconut-tree.png"
+        {/* <motion.img loading="lazy" decoding="async" src="/assets/main/coconut-tree.png"
           initial={{ opacity: 0, clipPath: "inset(100% 0% 0% 0%)" }}
           whileInView={{ opacity: 1, clipPath: "inset(0% 0% 0% 0%)" }}
           viewport={{ once: true, margin: "0px 0px -50px 0px" }}
@@ -632,8 +631,7 @@ function PersonCard({ person, photo_url, delay = 0, isBride = false }) {
             pointerEvents: "none",
           }}
         /> */}
-        {/* <motion.img 
-            src="/assets/main/pelepah.png"
+        {/* <motion.img loading="lazy" decoding="async" src="/assets/main/pelepah.png"
             initial={{ opacity: 0, clipPath: "inset(100% 0% 0% 0%)" }}
             whileInView={{ opacity: 1, clipPath: "inset(0% 0% 0% 0%)" }}
             viewport={{ once: true, margin: "0px 0px -50px 0px" }}
@@ -669,8 +667,7 @@ function PersonCard({ person, photo_url, delay = 0, isBride = false }) {
           }}
         >
           {photo_url ? (
-            <img
-              src={photo_url}
+            <img loading="lazy" decoding="async" src={photo_url}
               alt={person.full_name}
               style={{ width: "100%", height: "100%", objectFit: "cover" }}
             />
@@ -764,8 +761,7 @@ function MainCoupleSection({ bride, groom, settings }) {
               zIndex: 1,
             }}
           >
-            <motion.img
-              src="/assets/main/wayang1.png"
+            <motion.img loading="lazy" decoding="async" src="/assets/main/wayang1.png"
               alt="Ornament Bunga Kiri Atas"
               initial={{ opacity: 0, scale: 0.8, rotate: 180 }}
               whileInView={{ opacity: 1, scale: 1, rotate: 0 }}
@@ -913,8 +909,7 @@ function CountdownSection({ settings, bride, groom }) {
           zIndex: 4,
         }}
       >
-        <motion.img
-          src="/assets/main/bunga.png"
+        <motion.img loading="lazy" decoding="async" src="/assets/main/bunga.png"
           alt="Ornament Bunga Kiri Atas"
           initial={{ opacity: 0, scale: 0.8, rotate: 180 }}
           whileInView={{ opacity: 0.8, scale: 1, rotate: 60 }}
@@ -944,8 +939,7 @@ function CountdownSection({ settings, bride, groom }) {
           zIndex: 4,
         }}
       >
-        <motion.img
-          src="/assets/main/bunga.png"
+        <motion.img loading="lazy" decoding="async" src="/assets/main/bunga.png"
           alt="Ornament Bunga Kanan Bawah"
           initial={{ opacity: 0, scale: 0.4 }}
           whileInView={{ opacity: 0.8, scale: 1, rotate: 30 }}
@@ -1537,9 +1531,7 @@ function GallerySection({ gallery, setLightboxIdx }) {
                 }}
               >
                 {img.image_url ? (
-                  <img
-                    src={img.image_url}
-                    loading="lazy"
+                  <img loading="lazy" decoding="async" src={img.image_url}
                     style={{
                       width: "100%",
                       height: "100%",
@@ -1748,7 +1740,7 @@ function GallerySection({ gallery, setLightboxIdx }) {
 //              <AnimatePresence mode="wait">
 //                <motion.div key={lightboxIdx} initial={{ opacity: 0, scale: 0.92 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.92 }} transition={{ duration: 0.28 }} onClick={function(e) { e.stopPropagation(); }} style={{ borderRadius: '16px', overflow: 'hidden', boxShadow: '0 32px 100px rgba(0,0,0,0.8)', border: '1px solid rgba(205,175,120,0.2)' }}>
 //                  {images[lightboxIdx] && images[lightboxIdx].image_url
-//                    ? <img src={images[lightboxIdx].image_url} alt="" style={{ display: 'block', maxWidth: '88vw', maxHeight: '78vh', objectFit: 'contain' }} />
+//                    ? <img loading="lazy" decoding="async" src={images[lightboxIdx].image_url} alt="" style={{ display: 'block', maxWidth: '88vw', maxHeight: '78vh', objectFit: 'contain' }} />
 //                    : <div style={{ width: '70vw', height: '70vw', maxWidth: '320px', maxHeight: '320px', background: '#3D1A18', display: 'flex', alignItems: 'center', justifyContent: 'center' }}><Heart size={48} color="rgba(253,248,243,0.2)" /></div>
 //                  }
 //                </motion.div>
@@ -2569,8 +2561,7 @@ export default function WeddingTemplate({ guestName }) {
                 }}
               >
                 {gallery[lightboxIdx] && gallery[lightboxIdx].image_url ? (
-                  <img
-                    src={gallery[lightboxIdx].image_url}
+                  <img loading="lazy" decoding="async" src={gallery[lightboxIdx].image_url}
                     alt=""
                     style={{
                       display: "block",
