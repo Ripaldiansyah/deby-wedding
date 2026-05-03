@@ -256,10 +256,16 @@ function CoverPanel({ onOpen, guestName, bride, groom, settings }) {
             }}
           >
             {settings?.photo_story ? (
-              <img loading="lazy" decoding="async" src={settings.photo_story}
-                alt="Couple"
-                style={{ width: "100%", height: "100%", objectFit: "cover" }}
-              />
+              <div style={{ position: "relative", width: "100%", height: "100%" }}>
+                <Image
+                  src={settings.photo_story}
+                  alt="Couple Story"
+                  fill
+                  sizes="200px"
+                  priority={false}
+                  style={{ objectFit: "cover" }}
+                />
+              </div>
             ) : (
               <Heart size={48} color="#992c25" opacity={0.4} />
             )}
@@ -404,6 +410,7 @@ function RightHeroVideo({ settings, bride, groom }) {
           autoPlay
           muted
           playsInline
+          preload="metadata"
           onTimeUpdate={(e) => {
             if (e.target.currentTime >= 7 && !showHexagon) {
               setShowHexagon(true);
@@ -666,10 +673,15 @@ function PersonCard({ person, photo_url, delay = 0, isBride = false }) {
           }}
         >
           {photo_url ? (
-            <img loading="lazy" decoding="async" src={photo_url}
-              alt={person.full_name}
-              style={{ width: "100%", height: "100%", objectFit: "cover" }}
-            />
+            <div style={{ position: "relative", width: "100%", height: "100%" }}>
+              <Image
+                src={photo_url}
+                alt={person.full_name}
+                fill
+                sizes="160px"
+                style={{ objectFit: "cover" }}
+              />
+            </div>
           ) : (
             <Heart size={36} color="rgba(253,248,243,0.4)" />
           )}
@@ -2562,15 +2574,16 @@ export default function WeddingTemplate({ guestName }) {
                 }}
               >
                 {gallery[lightboxIdx] && gallery[lightboxIdx].image_url ? (
-                  <img loading="lazy" decoding="async" src={gallery[lightboxIdx].image_url}
-                    alt=""
-                    style={{
-                      display: "block",
-                      maxWidth: "88vw",
-                      maxHeight: "78vh",
-                      objectFit: "contain",
-                    }}
-                  />
+                  <div style={{ position: "relative", width: "88vw", maxWidth: "700px", height: "70vh" }}>
+                    <Image
+                      src={gallery[lightboxIdx].image_url}
+                      alt="Wedding Gallery"
+                      fill
+                      sizes="88vw"
+                      priority
+                      style={{ objectFit: "contain" }}
+                    />
+                  </div>
                 ) : (
                   <div
                     style={{
