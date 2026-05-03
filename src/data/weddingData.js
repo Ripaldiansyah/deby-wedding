@@ -2,12 +2,12 @@
  * ================================================
  * FILE KONFIGURASI PERNIKAHAN - EDIT DI SINI
  * ================================================
- * 
+ *
  * PANDUAN ASSET:
  * - Taruh foto/video di folder: public/assets/main/
  * - Taruh foto galeri di:       public/assets/gallery/
  * - Taruh logo bank di:         public/assets/logos/
- * 
+ *
  * NAMA FILE YANG DIREKOMENDASIKAN:
  * - public/assets/main/hero.jpg        -> Foto hero (kiri/cover)
  * - public/assets/main/story.jpg       -> Foto cerita
@@ -26,16 +26,18 @@ export const weddingData = {
   settings: {
     // hero_greeting: "The Wedding Of",
     hero_date: "2026-06-06",
-    quote_text: "Dan di antara tanda-tanda (kebesaran Allah) ialah Dia menciptakan pasangan-pasangan untukmu dari jenismu sendiri, agar kamu cenderung dan merasa tenteram kepadanya, dan Dia menjadikan di antaramu rasa kasih dan sayang. Sungguh, pada yang demikian itu benar-benar terdapat tanda-tanda (kebesaran Allah) bagi kaum yang berpikir.",
+    quote_text:
+      "Dan di antara tanda-tanda (kebesaran Allah) ialah Dia menciptakan pasangan-pasangan untukmu dari jenismu sendiri, agar kamu cenderung dan merasa tenteram kepadanya, dan Dia menjadikan di antaramu rasa kasih dan sayang. Sungguh, pada yang demikian itu benar-benar terdapat tanda-tanda (kebesaran Allah) bagi kaum yang berpikir.",
     quote_author: "QS Ar-Rum : 21",
-    intro_text: "Dengan memohon Rahmat & Ridho Allah SWT, kami bermaksud mengundang Bapak/Ibu/Saudara/i untuk menghadiri acara pernikahan kami.",
+    intro_text:
+      "Dengan memohon Rahmat & Ridho Allah SWT, kami bermaksud mengundang Bapak/Ibu/Saudara/i untuk menghadiri acara pernikahan kami.",
     // Ganti path berikut dengan file Anda
     hero_greeting: "THE WEDDING OF",
     photo_hero: "/assets/main/hero.jpg",
     photo_bride: "/assets/main/bride.jpg",
     photo_groom: "/assets/main/groom.jpg",
     photo_story: "/assets/main/story.jpg",
-    bg_image_url: "/assets/main/bg.jpg",  // Kosongkan jika tidak pakai background
+    bg_image_url: "/assets/main/bg.jpg", // Kosongkan jika tidak pakai background
     music_url: "/assets/main/music.mp3",
     video_url: "/assets/main/video.mp4",
     video_rewind_time: 13.5, // Ganti angka ini untuk menentukan ke detik berapa video mundur (misal 10.5 detik)
@@ -67,7 +69,8 @@ export const weddingData = {
       start_time: "08:00",
       end_time: "10:00",
       location_name: "Kediaman Mempelai Wanita",
-      address: "Lapangan Komplek Huma Akasia RT 001 RW 008, Kelurahan Jatiwarna, Kecamatan Pondok Melati, Kota Bekasi",
+      address:
+        "Lapangan Komplek Huma Akasia RT 001 RW 008, Kelurahan Jatiwarna, Kecamatan Pondok Melati, Kota Bekasi",
       map_url: "https://maps.app.goo.gl/kUcmyQwGxN3GoHmR6?g_st=iw",
     },
     {
@@ -76,10 +79,10 @@ export const weddingData = {
       start_time: "11:00",
       end_time: "16:00",
       location_name: "Kediaman Mempelai Wanita",
-      address: "Lapangan Komplek Huma Akasia RT 001 RW 008, Kelurahan Jatiwarna, Kecamatan Pondok Melati, Kota Bekasi",
+      address:
+        "Lapangan Komplek Huma Akasia RT 001 RW 008, Kelurahan Jatiwarna, Kecamatan Pondok Melati, Kota Bekasi",
       map_url: "https://maps.app.goo.gl/kUcmyQwGxN3GoHmR6?g_st=iw",
     },
-    
   ],
 
   stories: [
@@ -92,13 +95,15 @@ export const weddingData = {
     {
       date: "Maret 2024",
       title: "Lamaran",
-      description: "Momen bahagia saat kami memutuskan untuk melangkah lebih jauh.",
+      description:
+        "Momen bahagia saat kami memutuskan untuk melangkah lebih jauh.",
       image_url: "/assets/gallery/story2.jpg",
     },
     {
       date: "April 2025",
       title: "Hari Pernikahan",
-      description: "Hari yang paling kami nantikan, menjadi satu dalam ikatan suci.",
+      description:
+        "Hari yang paling kami nantikan, menjadi satu dalam ikatan suci.",
       image_url: "/assets/gallery/story3.jpg",
     },
   ],
@@ -115,8 +120,8 @@ export const weddingData = {
     { image_url: "/assets/gallery/8.jpg", span_type: "large" },
     { image_url: "/assets/gallery/9.jpg", span_type: "normal" },
     { image_url: "/assets/gallery/10.jpg", span_type: "normal" },
-    { image_url: "/assets/gallery/11.jpg", span_type: "normal" },
-    { image_url: "/assets/gallery/12.jpg", span_type: "normal" },
+    // { image_url: "/assets/gallery/11.jpg", span_type: "normal" },
+    // { image_url: "/assets/gallery/12.jpg", span_type: "normal" },
   ],
 
   gifts: [
@@ -127,7 +132,7 @@ export const weddingData = {
       is_address: false,
       logo_url: "/assets/logos/bca.png",
     },
-    
+
     // Uncomment berikut jika ingin tambah alamat pengiriman fisik:
     // {
     //   bank_name: "Alamat Kado",
