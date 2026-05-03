@@ -1,4 +1,5 @@
 "use client";
+import Image from "next/image";
 
 import { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence, useInView } from "framer-motion";
@@ -403,8 +404,6 @@ function RightHeroVideo({ settings, bride, groom }) {
           autoPlay
           muted
           playsInline
-          preload="metadata"
-          poster={settings.photo_hero}
           onTimeUpdate={(e) => {
             if (e.target.currentTime >= 7 && !showHexagon) {
               setShowHexagon(true);
@@ -1531,10 +1530,12 @@ function GallerySection({ gallery, setLightboxIdx }) {
                 }}
               >
                 {img.image_url ? (
-                  <img loading="lazy" decoding="async" src={img.image_url}
+                  <Image
+                    src={img.image_url}
+                    alt={`Gallery item ${i}`}
+                    fill
+                    sizes="(max-width: 768px) 50vw, 33vw"
                     style={{
-                      width: "100%",
-                      height: "100%",
                       objectFit: "cover",
                       display: "block",
                     }}
