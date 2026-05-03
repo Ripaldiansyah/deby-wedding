@@ -49,13 +49,17 @@ export async function generateMetadata() {
   };
 }
 
+import SmoothScroll from "@/components/SmoothScroll";
+
 export default function RootLayout({ children }) {
   return (
     <html
       lang="id"
       className={`${playfair.variable} ${jakarta.variable} ${cormorant.variable} ${greatVibes.variable}`}
     >
-      <body>{children}</body>
+      <body>
+        <SmoothScroll>{children}</SmoothScroll>
+      </body>
     </html>
   );
 }

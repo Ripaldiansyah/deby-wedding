@@ -149,9 +149,9 @@ body {
   padding: 40px 16px; /* Space around cards */
   background-image: url("/assets/main/bg.jpg");
   /* background-color: #481f1b; */
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
+  background-size: 100%;
+  background-position: top;
+  background-repeat: repeat;
   overflow: hidden;
 }
 

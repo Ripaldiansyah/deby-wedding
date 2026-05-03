@@ -612,7 +612,7 @@ function PersonCard({ person, photo_url, delay = 0, isBride = false }) {
           position: "relative",
         }}
       >
-        <motion.img
+        {/* <motion.img
           src="/assets/main/coconut-tree.png"
           initial={{ opacity: 0, clipPath: "inset(100% 0% 0% 0%)" }}
           whileInView={{ opacity: 1, clipPath: "inset(0% 0% 0% 0%)" }}
@@ -631,7 +631,7 @@ function PersonCard({ person, photo_url, delay = 0, isBride = false }) {
             zIndex: -1,
             pointerEvents: "none",
           }}
-        />
+        /> */}
         {/* <motion.img 
             src="/assets/main/pelepah.png"
             initial={{ opacity: 0, clipPath: "inset(100% 0% 0% 0%)" }}
@@ -737,7 +737,13 @@ function PersonCard({ person, photo_url, delay = 0, isBride = false }) {
 
 function MainCoupleSection({ bride, groom, settings }) {
   return (
-    <div className="section-frame" style={{ position: "relative" }}>
+    <div
+      className="section-frame"
+      style={{
+        position: "relative",
+        backgroundImage: "url('/assets/main/bg_1.jpeg')",
+      }}
+    >
       <div className="inset-card card-dark">
         <Reveal>
           <motion.div
@@ -891,9 +897,9 @@ function CountdownSection({ settings, bride, groom }) {
       {/* Ornamen Bunga Pojok Kiri Atas */}
       <motion.div
         animate={{
-          y: [0, -15, 0],
-          x: [0, 8, 0],
-          rotate: [0, 4, 0],
+          y: [0, 15, 0],
+          x: [0, -8, 0],
+          rotate: [0, -4, 0],
         }}
         transition={{
           repeat: Infinity,
@@ -902,16 +908,16 @@ function CountdownSection({ settings, bride, groom }) {
         }}
         style={{
           position: "absolute",
-          top: "-125px",
-          left: "-125px",
-          zIndex: 99,
+          bottom: "-105px",
+          left: "-150px",
+          zIndex: 4,
         }}
       >
         <motion.img
           src="/assets/main/bunga.png"
           alt="Ornament Bunga Kiri Atas"
           initial={{ opacity: 0, scale: 0.8, rotate: 180 }}
-          whileInView={{ opacity: 0.8, scale: 1, rotate: 260 }}
+          whileInView={{ opacity: 0.8, scale: 1, rotate: 60 }}
           viewport={{ once: true, amount: 0.3 }}
           transition={{ duration: 1.2, ease: "easeOut", delay: 0.2 }}
           style={{ width: "420px", height: "420px", objectFit: "contain" }}
@@ -935,14 +941,14 @@ function CountdownSection({ settings, bride, groom }) {
           position: "absolute",
           bottom: "-105px",
           right: "-150px",
-          zIndex: 99,
+          zIndex: 4,
         }}
       >
         <motion.img
           src="/assets/main/bunga.png"
           alt="Ornament Bunga Kanan Bawah"
           initial={{ opacity: 0, scale: 0.4 }}
-          whileInView={{ opacity: 0.8, scale: 1, rotate: 70 }}
+          whileInView={{ opacity: 0.8, scale: 1, rotate: 30 }}
           viewport={{ once: true, amount: 0.3 }}
           transition={{ duration: 1.2, ease: "easeOut", delay: 0.4 }}
           style={{ width: "420px", height: "420px", objectFit: "contain" }}
@@ -951,7 +957,7 @@ function CountdownSection({ settings, bride, groom }) {
 
       <div
         className="inset-card card-ivory"
-        style={{ position: "relative", zIndex: 2, textAlign: "center" }}
+        style={{ position: "relative", zIndex: 6, textAlign: "center" }}
       >
         <Reveal>
           <p
@@ -2012,7 +2018,15 @@ function GuestbookSection({ guestName }) {
   };
 
   return (
-    <div className="section-frame">
+    <div
+      className="section-frame"
+      style={{
+        backgroundImage: "url('/assets/main/bg33.jpeg')",
+        backgroundPosition: "top",
+        backgroundRepeat: "repeat",
+        backgroundSize: "100%",
+      }}
+    >
       <div className="inset-card card-ivory" style={{ borderRadius: "24px" }}>
         <Reveal>
           <p
