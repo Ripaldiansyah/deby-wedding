@@ -410,7 +410,7 @@ function RightHeroVideo({ settings, bride, groom }) {
           autoPlay
           muted
           playsInline
-          preload="metadata"
+          preload="auto"
           onTimeUpdate={(e) => {
             if (e.target.currentTime >= 7 && !showHexagon) {
               setShowHexagon(true);
