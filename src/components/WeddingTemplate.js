@@ -753,14 +753,14 @@ function PersonCard({ person, photo_url, delay = 0, isBride = false }) {
 function MainCoupleSection({ bride, groom, settings }) {
   return (
     <div
-      className="section-frame "
+      className="section-frame bg-fixed md:bg-scroll "
       style={{
         position: "relative",
-        minHeight: "100vh",
         backgroundImage: "url('/assets/main/bg_1.jpeg')",
-        backgroundSize: "100% 100%", // Padanan untuk bg-full
-        backgroundAttachment: "fixed",
-        backgroundPosition: "top",
+        backgroundSize: "cover",
+        backgroundPosition: " top",
+        // backgroundAttachment: "fixed",
+        backgroundRepeat: "revert-layer",
       }}
     >
       <div className="inset-card card-dark">
@@ -1224,14 +1224,14 @@ function EventSection({ events }) {
   if (!events || events.length === 0) return null;
   return (
     <div
-      className="section-frame"
+      className="section-frame bg-fixed md:bg-scroll "
       style={{
         position: "relative",
-        minHeight: "100vh",
-
-        backgroundSize: "100% 100%", // Padanan untuk bg-full
-        backgroundAttachment: "fixed",
-        backgroundPosition: "top",
+        // backgroundImage: "url('/assets/main/bg_1.jpeg')",
+        backgroundSize: "cover",
+        backgroundPosition: " top",
+        // backgroundAttachment: "fixed",
+        backgroundRepeat: "revert-layer",
       }}
     >
       <div className="inset-card card-dark">
@@ -1366,7 +1366,13 @@ function StorySection({ stories }) {
    ═══════════════════════════════════════════ */
 function PrayerSection() {
   return (
-    <div className="section-frame" style={{ position: "relative" }}>
+    <div
+      className="section-frame"
+      style={{
+        position: "relative",
+        backgroundImage: "url('/assets/main/bgg.jpeg')",
+      }}
+    >
       <div className="inset-card card-dark" style={{ borderRadius: "24px" }}>
         <Reveal>
           <div
@@ -2322,6 +2328,9 @@ function ClosingSection({ bride, groom }) {
       className="section-frame"
       style={{
         backgroundImage: "url('/assets/gallery/92.jpg')",
+        backgroundPosition: " center",
+        backgroundRepeat: "no-repeat",
+        backgroundSize: "cover",
         padding: 0,
         overflow: "hidden",
       }}

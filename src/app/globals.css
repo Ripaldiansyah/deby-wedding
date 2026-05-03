@@ -150,6 +150,7 @@ body {
   background-image: url("/assets/main/bg.jpg");
   /* background-color: #481f1b; */
   background-size: 100%;
+
   background-position: top;
   background-repeat: repeat;
   overflow: hidden;
