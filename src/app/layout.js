@@ -56,6 +56,9 @@ export default function RootLayout({ children }) {
       lang="id"
       className={`${playfair.variable} ${jakarta.variable} ${cormorant.variable} ${greatVibes.variable}`}
     >
+      <head>
+        <link rel="preload" as="video" href="/assets/main/video.mp4" type="video/mp4" fetchPriority="high" />
+      </head>
       <body>{children}</body>
     </html>
   );
