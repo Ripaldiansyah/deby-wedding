@@ -752,14 +752,13 @@ function PersonCard({ person, photo_url, delay = 0, isBride = false }) {
 function MainCoupleSection({ bride, groom, settings }) {
   return (
     <div
-      className="section-frame bg-fixed md:bg-scroll "
+      className="section-frame"
       style={{
         position: "relative",
         backgroundImage: "url('/assets/main/bg_1.jpeg')",
-        backgroundSize: "cover",
-        backgroundPosition: " top",
-        // backgroundAttachment: "fixed",
-        backgroundRepeat: "revert-layer",
+        backgroundSize: "100% 100%",
+        backgroundPosition: "top",
+        backgroundRepeat: "no-repeat",
       }}
     >
       <div className="inset-card card-dark">
@@ -1223,14 +1222,13 @@ function EventSection({ events }) {
   if (!events || events.length === 0) return null;
   return (
     <div
-      className="section-frame bg-fixed md:bg-scroll "
+      className="section-frame"
       style={{
         position: "relative",
         // backgroundImage: "url('/assets/main/bg_1.jpeg')",
-        backgroundSize: "cover",
-        backgroundPosition: " top",
-        // backgroundAttachment: "fixed",
-        backgroundRepeat: "revert-layer",
+        backgroundSize: "100% 100%",
+        backgroundPosition: "top",
+        backgroundRepeat: "no-repeat",
       }}
     >
       <div className="inset-card card-dark">
@@ -1515,15 +1513,6 @@ function GallerySection({ gallery, setLightboxIdx }) {
           </div>
         </Reveal>
 
-        <style
-          dangerouslySetInnerHTML={{
-            __html: `
-          .luxury-grid-item img { transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
-          @media (hover: hover) { .luxury-grid-item:hover img { transform: scale(1.08); } }
-        `,
-          }}
-        />
-
         <div
           style={{
             display: "grid",
@@ -1579,9 +1568,15 @@ function GallerySection({ gallery, setLightboxIdx }) {
                 {img.image_url ? (
                   <Image
                     src={img.image_url}
-                    alt={`Gallery item ${i}`}
+                    alt={`Gallery ${i + 1}`}
                     fill
-                    sizes="(max-width: 768px) 50vw, 33vw"
+                    sizes={
+                      colSpan === 2
+                        ? "(max-width: 640px) 95vw, 440px"
+                        : "(max-width: 640px) 50vw, 220px"
+                    }
+                    quality={95}
+                    unoptimized
                     style={{
                       objectFit: "cover",
                       display: "block",
@@ -1656,40 +1651,10 @@ function GallerySection({ gallery, setLightboxIdx }) {
     </div>
   );
 }
-//     </div>
-//   );
-// }
-// function GallerySection({ gallery }) {
-//   const [lightboxIdx, setLightboxIdx] = useState(null);
-//   const [activeIndex, setActiveIndex] = useState(0);
-//   const carouselRef = useRef(null);
 
-//   const images = gallery && gallery.length > 0 ? gallery : Array(6).fill({ image_url: '', span_type: 'normal' });
-
-//   const closeLightbox = () => setLightboxIdx(null);
-//   const prevPhoto = (e) => { e.stopPropagation(); setLightboxIdx(function(i) { return (i - 1 + images.length) % images.length; }); };
-//   const nextPhoto = (e) => { e.stopPropagation(); setLightboxIdx(function(i) { return (i + 1) % images.length; }); };
-
-//   const handleScroll = (e) => {
-//     if (!carouselRef.current) return;
-//     const scrollLeft = e.target.scrollLeft;
-//     // Calculate based on first child's width
-//     const itemWidth = carouselRef.current.children[1].offsetWidth;
-//     const newIndex = Math.round(scrollLeft / itemWidth);
-//     if(newIndex !== activeIndex) {
-//       setActiveIndex(newIndex);
-//     }
-//   };
-
-//   const scrollToSlide = (index) => {
-//     if (!carouselRef.current) return;
-//     const itemWidth = carouselRef.current.children[1].offsetWidth;
-//     carouselRef.current.scrollTo({ left: index * itemWidth, behavior: 'smooth' });
-//   };
-
-//   return (
-//     <div className="section-frame">
-//       <div className="inset-card card-ivory" style={{ padding: '48px 0 40px', overflow: 'hidden' }}>
+/* ═══════════════════════════════════════════
+   GIFT SECTION
+   ═══════════════════════════════════════════ */
 //         <Reveal>
 //           <div style={{ textAlign: 'center', padding: '0 24px 32px' }}>
 //             <p style={{ fontFamily: 'var(--font-sans)', fontSize: '0.58rem', letterSpacing: '0.35em', textTransform: 'uppercase', color: 'rgba(253,248,243,0.45)', marginBottom: '14px', fontWeight: 600 }}>Memories Together</p>

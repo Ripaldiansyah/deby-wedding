@@ -1,22 +1,23 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // Optimasi gambar dari URL eksternal (Cloudinary, dll)
   images: {
     formats: ["image/avif", "image/webp"],
-    minimumCacheTTL: 31536000, // Cache 1 tahun
+    minimumCacheTTL: 31536000,
+    // Device sizes tuned for mobile-first (mostly phone screens)
+    deviceSizes: [390, 430, 768, 1080, 1440],
+    imageSizes: [128, 256, 384],
     remotePatterns: [
       {
         protocol: "https",
-        hostname: "**", // Izinkan semua HTTPS image source
+        hostname: "**",
       },
     ],
   },
 
-  // Tambah header cache untuk aset statis
   async headers() {
     return [
       {
-        // Cache semua aset di /assets/ selama 1 tahun
+        // Aggressive cache for static assets
         source: "/assets/:path*",
         headers: [
           {
@@ -25,8 +26,21 @@ const nextConfig = {
           },
         ],
       },
+      {
+        // Short cache for HTML pages (so updates deploy fast)
+        source: "/:path*",
+        headers: [
+          {
+            key: "X-Content-Type-Options",
+            value: "nosniff",
+          },
+        ],
+      },
     ];
   },
+
+  // Compress output
+  compress: true,
 };
 
 export default nextConfig;
