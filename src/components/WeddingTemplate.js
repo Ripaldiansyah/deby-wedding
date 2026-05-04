@@ -267,7 +267,7 @@ function CoverPanel({ onOpen, guestName, bride, groom, settings }) {
                   alt="Couple Story"
                   fill
                   sizes="200px"
-                  priority={false}
+                  priority
                   style={{ objectFit: "cover" }}
                 />
               </div>
@@ -417,12 +417,12 @@ function RightHeroVideo({ settings, bride, groom }) {
           playsInline
           preload="auto"
           onTimeUpdate={(e) => {
-            if (e.target.currentTime >= 7 && !showHexagon) {
+            if (e.target.currentTime >= 13.5 && !showHexagon) {
               setShowHexagon(true);
             }
           }}
           onEnded={(e) => {
-            e.target.currentTime = 11;
+            e.target.currentTime = 14.5;
             e.target.play();
           }}
           style={{
@@ -465,7 +465,6 @@ function RightHeroVideo({ settings, bride, groom }) {
               flexDirection: "column",
               alignItems: "center",
               justifyContent: "center",
-              backgroundColor: "rgba(0, 0, 0, 0.36)",
             }}
           >
             <div

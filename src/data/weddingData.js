@@ -132,6 +132,13 @@ export const weddingData = {
       is_address: false,
       logo_url: "/assets/logos/bca.png",
     },
+    {
+      bank_name: "BSI",
+      account_number: "7183300681",
+      account_name: "M Rifqi Alam Ramadhan",
+      is_address: false,
+      logo_url: "/assets/logos/bsi1.png",
+    },
 
     // Uncomment berikut jika ingin tambah alamat pengiriman fisik:
     // {
