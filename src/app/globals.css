@@ -147,7 +147,7 @@ body {
   position: relative;
   width: 100%;
   padding: 40px 16px; /* Space around cards */
-  background-image: url("/assets/main/bg.jpg");
+  background-image: url("/assets/main/bg.webp");
   /* background-color: #481f1b; */
   background-size: 100%;
 

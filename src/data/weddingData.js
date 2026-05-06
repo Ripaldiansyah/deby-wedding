@@ -9,16 +9,16 @@
  * - Taruh logo bank di:         public/assets/logos/
  *
  * NAMA FILE YANG DIREKOMENDASIKAN:
- * - public/assets/main/hero.jpg        -> Foto hero (kiri/cover)
- * - public/assets/main/story.jpg       -> Foto cerita
- * - public/assets/main/bg.jpg          -> Background halaman
+ * - public/assets/main/hero.webp        -> Foto hero (kiri/cover)
+ * - public/assets/main/story.webp       -> Foto cerita
+ * - public/assets/main/bg.webp          -> Background halaman
  * - public/assets/main/music.mp3       -> Musik latar
  * - public/assets/main/video.mp4       -> Video sinematik
- * - public/assets/main/bride.jpg       -> Foto mempelai wanita
- * - public/assets/main/groom.jpg       -> Foto mempelai pria
+ * - public/assets/main/bride.webp       -> Foto mempelai wanita
+ * - public/assets/main/groom.webp       -> Foto mempelai pria
  * - public/assets/logos/bca.png        -> Logo BCA
  * - public/assets/logos/mandiri.png    -> Logo Mandiri
- * - public/assets/gallery/1.jpg        -> Foto galeri 1
+ * - public/assets/gallery/1.webp        -> Foto galeri 1
  * ...dst
  */
 
@@ -33,11 +33,12 @@ export const weddingData = {
       "Dengan memohon Rahmat & Ridho Allah SWT, kami bermaksud mengundang Bapak/Ibu/Saudara/i untuk menghadiri acara pernikahan kami.",
     // Ganti path berikut dengan file Anda
     hero_greeting: "THE WEDDING OF",
-    photo_hero: "/assets/main/hero.jpg",
-    photo_bride: "/assets/main/bride.jpg",
-    photo_groom: "/assets/main/groom.jpg",
-    photo_story: "/assets/main/story.jpg",
-    bg_image_url: "/assets/main/bg.jpg", // Kosongkan jika tidak pakai background
+    photo_hero: "/assets/main/hero.webp",
+    temporary: "/assets/main/temporary.webp",
+    photo_bride: "/assets/main/bride.webp",
+    photo_groom: "/assets/main/groom.webp",
+    photo_story: "/assets/main/hero.webp",
+    bg_image_url: "/assets/main/bg.webp", // Kosongkan jika tidak pakai background
     music_url: "/assets/main/music.mp3",
     video_url: "/assets/main/video.mp4",
     video_rewind_time: 13.5, // Ganti angka ini untuk menentukan ke detik berapa video mundur (misal 10.5 detik)
@@ -90,38 +91,38 @@ export const weddingData = {
       date: "Januari 2020",
       title: "Pertama Bertemu",
       description: "Awal mula perjalanan cinta kami dimulai di sini.",
-      image_url: "/assets/gallery/story1.jpg",
+      image_url: "/assets/gallery/story1.webp",
     },
     {
       date: "Maret 2024",
       title: "Lamaran",
       description:
         "Momen bahagia saat kami memutuskan untuk melangkah lebih jauh.",
-      image_url: "/assets/gallery/story2.jpg",
+      image_url: "/assets/gallery/story2.webp",
     },
     {
       date: "April 2025",
       title: "Hari Pernikahan",
       description:
         "Hari yang paling kami nantikan, menjadi satu dalam ikatan suci.",
-      image_url: "/assets/gallery/story3.jpg",
+      image_url: "/assets/gallery/story3.webp",
     },
   ],
 
   // Format gallery: array objek dengan image_url dan span_type ('normal', 'wide', 'tall', 'large')
   gallery: [
-    { image_url: "/assets/gallery/1.jpg", span_type: "tall" },
-    { image_url: "/assets/gallery/2.jpg", span_type: "normal" },
-    { image_url: "/assets/gallery/3.jpg", span_type: "normal" },
-    { image_url: "/assets/gallery/4.jpg", span_type: "wide" },
-    { image_url: "/assets/gallery/5.jpg", span_type: "normal" },
-    { image_url: "/assets/gallery/6.jpg", span_type: "normal" },
-    { image_url: "/assets/gallery/7.jpg", span_type: "tall" },
-    { image_url: "/assets/gallery/8.jpg", span_type: "large" },
-    { image_url: "/assets/gallery/9.jpg", span_type: "normal" },
-    { image_url: "/assets/gallery/10.jpg", span_type: "normal" },
-    // { image_url: "/assets/gallery/11.jpg", span_type: "normal" },
-    // { image_url: "/assets/gallery/12.jpg", span_type: "normal" },
+    { image_url: "/assets/gallery/1.webp", span_type: "tall" },
+    { image_url: "/assets/gallery/2.webp", span_type: "normal" },
+    { image_url: "/assets/gallery/3.webp", span_type: "normal" },
+    { image_url: "/assets/gallery/4.webp", span_type: "wide" },
+    { image_url: "/assets/gallery/5.webp", span_type: "normal" },
+    { image_url: "/assets/gallery/6.webp", span_type: "normal" },
+    { image_url: "/assets/gallery/7.webp", span_type: "tall" },
+    { image_url: "/assets/gallery/8.webp", span_type: "large" },
+    { image_url: "/assets/gallery/9.webp", span_type: "normal" },
+    { image_url: "/assets/gallery/10.webp", span_type: "normal" },
+    // { image_url: "/assets/gallery/11.webp", span_type: "normal" },
+    // { image_url: "/assets/gallery/12.webp", span_type: "normal" },
   ],
 
   gifts: [

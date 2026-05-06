@@ -211,7 +211,7 @@ function CoverPanel({ onOpen, guestName, bride, groom, settings }) {
       exit={{ opacity: 0, x: 80 }}
       transition={{ duration: 0.1 }}
       style={{
-        backgroundImage: "url('/assets/main/bg.jpg')",
+        backgroundImage: "url('/assets/main/bg.webp')",
         backgroundSize: "cover",
         backgroundPosition: "center",
         position: "relative",
@@ -416,6 +416,7 @@ function RightHeroVideo({ settings, bride, groom }) {
           muted
           playsInline
           preload="auto"
+          poster={settings.temporary || undefined}
           onTimeUpdate={(e) => {
             if (e.target.currentTime >= 13.5 && !showHexagon) {
               setShowHexagon(true);
@@ -440,7 +441,7 @@ function RightHeroVideo({ settings, bride, groom }) {
           style={{
             position: "absolute",
             inset: 0,
-            backgroundImage: `url(${settings.photo_hero})`,
+            backgroundImage: `url(${settings.temporary})`,
             backgroundSize: "cover",
             backgroundPosition: "center",
           }}
@@ -755,7 +756,7 @@ function MainCoupleSection({ bride, groom, settings }) {
       className="section-frame"
       style={{
         position: "relative",
-        backgroundImage: "url('/assets/main/bg_1.jpeg')",
+        backgroundImage: "url('/assets/main/bg_1.webp')",
         backgroundSize: "100% 100%",
         backgroundPosition: "top",
         backgroundRepeat: "no-repeat",
@@ -1225,7 +1226,7 @@ function EventSection({ events }) {
       className="section-frame"
       style={{
         position: "relative",
-        // backgroundImage: "url('/assets/main/bg_1.jpeg')",
+        // backgroundImage: "url('/assets/main/bg_1.webp')",
         backgroundSize: "100% 100%",
         backgroundPosition: "top",
         backgroundRepeat: "no-repeat",
@@ -1367,7 +1368,7 @@ function PrayerSection() {
       className="section-frame"
       style={{
         position: "relative",
-        backgroundImage: "url('/assets/main/bgg.jpeg')",
+        backgroundImage: "url('/assets/main/bgg.webp')",
       }}
     >
       <div className="inset-card card-dark" style={{ borderRadius: "24px" }}>
@@ -2026,7 +2027,7 @@ function GuestbookSection({ guestName }) {
     <div
       className="section-frame"
       style={{
-        backgroundImage: "url('/assets/main/bg33.jpeg')",
+        backgroundImage: "url('/assets/main/bg_1.webp')",
         backgroundPosition: "top",
         backgroundRepeat: "repeat",
         backgroundSize: "100%",
@@ -2291,7 +2292,7 @@ function ClosingSection({ bride, groom }) {
     <div
       className="section-frame"
       style={{
-        backgroundImage: "url('/assets/gallery/92.jpg')",
+        backgroundImage: "url('/assets/gallery/92.webp')",
         backgroundPosition: " center",
         backgroundRepeat: "no-repeat",
         backgroundSize: "cover",
@@ -2402,6 +2403,27 @@ export default function WeddingTemplate({ guestName }) {
 
   return (
     <div className="split-layout">
+      {/* Eagerly preload the temporary poster image so it's ready before the user clicks Open */}
+      {settings.temporary && (
+        <div
+          style={{
+            position: "absolute",
+            width: 0,
+            height: 0,
+            overflow: "hidden",
+            zIndex: -1,
+          }}
+        >
+          <Image
+            src={settings.temporary}
+            alt="preload"
+            priority
+            width={10}
+            height={10}
+          />
+        </div>
+      )}
+
       <HeroLeft settings={settings} bride={bride} groom={groom} />
 
       <div className="split-right">
