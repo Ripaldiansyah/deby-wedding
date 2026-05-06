@@ -2424,6 +2424,26 @@ export default function WeddingTemplate({ guestName }) {
         </div>
       )}
 
+      {/* Eagerly preload the video so it's ready to play instantly */}
+      {settings.video_url && (
+        <div
+          style={{
+            position: "absolute",
+            width: 0,
+            height: 0,
+            overflow: "hidden",
+            zIndex: -1,
+          }}
+        >
+          <video
+            preload="auto"
+            muted
+            playsInline
+            src={settings.video_url}
+          />
+        </div>
+      )}
+
       <HeroLeft settings={settings} bride={bride} groom={groom} />
 
       <div className="split-right">
