@@ -418,12 +418,12 @@ function RightHeroVideo({ settings, bride, groom }) {
           preload="auto"
           poster={settings.temporary || undefined}
           onTimeUpdate={(e) => {
-            if (e.target.currentTime >= 13.5 && !showHexagon) {
+            if (e.target.currentTime >= 12.5 && !showHexagon) {
               setShowHexagon(true);
             }
           }}
           onEnded={(e) => {
-            e.target.currentTime = 14.5;
+            e.target.currentTime = 13.5;
             e.target.play();
           }}
           style={{
