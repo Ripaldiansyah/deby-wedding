@@ -6,6 +6,7 @@ const nextConfig = {
     // Device sizes tuned for mobile-first (mostly phone screens)
     deviceSizes: [390, 430, 768, 1080, 1440],
     imageSizes: [128, 256, 384],
+    qualities: [75, 95],
     remotePatterns: [
       {
         protocol: "https",
@@ -41,6 +42,7 @@ const nextConfig = {
 
   // Compress output
   compress: true,
+  allowedDevOrigins: ['192.168.18.9'],
 };
 
 export default nextConfig;

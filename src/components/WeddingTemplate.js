@@ -785,7 +785,7 @@ function MainCoupleSection({ bride, groom, settings }) {
             <motion.img
               loading="lazy"
               decoding="async"
-              src="/assets/main/wayang1.png"
+              src="/assets/main/wayang1.webp"
               alt="Ornament Bunga Kiri Atas"
               initial={{ opacity: 0, scale: 0.8, rotate: 180 }}
               whileInView={{ opacity: 1, scale: 1, rotate: 0 }}
@@ -936,7 +936,7 @@ function CountdownSection({ settings, bride, groom }) {
         <motion.img
           loading="lazy"
           decoding="async"
-          src="/assets/main/bunga.png"
+          src="/assets/main/bunga.webp"
           alt="Ornament Bunga Kiri Atas"
           initial={{ opacity: 0, scale: 0.8, rotate: 180 }}
           whileInView={{ opacity: 0.8, scale: 1, rotate: 60 }}
@@ -969,7 +969,7 @@ function CountdownSection({ settings, bride, groom }) {
         <motion.img
           loading="lazy"
           decoding="async"
-          src="/assets/main/bunga.png"
+          src="/assets/main/bunga.webp"
           alt="Ornament Bunga Kanan Bawah"
           initial={{ opacity: 0, scale: 0.4 }}
           whileInView={{ opacity: 0.8, scale: 1, rotate: 30 }}
@@ -2435,12 +2435,7 @@ export default function WeddingTemplate({ guestName }) {
             zIndex: -1,
           }}
         >
-          <video
-            preload="auto"
-            muted
-            playsInline
-            src={settings.video_url}
-          />
+          <video preload="auto" muted playsInline src={settings.video_url} />
         </div>
       )}
 
