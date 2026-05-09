@@ -78,7 +78,7 @@ export const weddingData = {
       type: "Resepsi",
       date: "2026-06-06",
       start_time: "11:00",
-      end_time: "16:00",
+      end_time: "14:00",
       location_name: "Kediaman Mempelai Wanita",
       address:
         "Lapangan Komplek Huma Akasia RT 001 RW 008, Kelurahan Jatiwarna, Kecamatan Pondok Melati, Kota Bekasi",
